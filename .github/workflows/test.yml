@@ -49,9 +49,12 @@ jobs:
         with:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.tags }}
+      - name: Checking version
+        run: |
+          echo version=${{ steps.docker_meta.outputs.version }}
       - name: Test
         run: |
-          docker run --rm
+          docker run --rm ${{ secrets.DATOMS_DOCKER_IMAGE_NAME }}:${{ steps.docker_meta.outputs.version }}
       # - name: Snyk Vulnerabilities Check
       #   # Snyk can be used to break the build when it detects vulnerabilities.
       #   # In this case we want to upload the issues to GitHub Code Scanning
