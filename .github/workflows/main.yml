@@ -58,15 +58,6 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.tags }}
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Update Docker Hub description
-        uses: peter-evans/dockerhub-description@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ secrets.DATOMS_DOCKER_IMAGE_NAME }}
-          # short-description: ${{ github.event.repository.description }}
       - name: Snyk Vulnerabilities Check
         # Snyk can be used to break the build when it detects vulnerabilities.
         # In this case we want to upload the issues to GitHub Code Scanning
@@ -84,3 +75,13 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+      # The following is not working & hence is left
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      # - name: Update Docker Hub description
+      #   uses: peter-evans/dockerhub-description@v2
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      #     repository: ${{ secrets.DATOMS_DOCKER_IMAGE_NAME }}
+      #     short-description: ${{ github.event.repository.description }}
