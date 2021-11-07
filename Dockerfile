@@ -1,4 +1,3 @@
-
 FROM praqma/helmsman:latest as helm
 FROM gcr.io/heptio-images/authenticator:v0.3.0-scratch as authenticator
 FROM stedolan/jq:latest as jq
